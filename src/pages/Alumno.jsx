@@ -110,7 +110,7 @@ const Alumno = () => {
             <p className="">Respuestas correctas: {data.correctAnswer} </p>
             <p className="">Porcentaje: {data.percentage}%</p>
             <p className="t-center">Respuestas incorrectas: {data.wrongAnswer}</p>
-            <p className="t-center">Aprobado: {data.percentage > 60 ? 'Si!!' : 'No :*('}</p>
+            <p className="t-center">Aprobado: {data.percentage >= 60 ? 'Si!!' : 'No :*('}</p>
           </div>
           <hr className="my-3 border-slate-500" />
           <section className="flex justify-between">
