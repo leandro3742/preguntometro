@@ -1451,14 +1451,13 @@ export const dataJson = [
   }
 ]
 
-console.log(dataJson.length)
 function generateRandomNumber() {
   let numeros = [];
   let min = 0;
   let max = 187;
 
   // Generar 30 números aleatorios sin repetición
-  while (numeros.length < 5) {
+  while (numeros.length < 30) {
     let num = Math.floor(Math.random() * (max - min + 1)) + min;
     if (!numeros.includes(num)) {
       numeros.push(num);
