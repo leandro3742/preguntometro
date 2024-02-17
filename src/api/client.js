@@ -3,10 +3,11 @@ import { API_URL } from './constants';
 
 export const createClient = async (client) => {
   try {
-    const response = await fetch('http://localhost:3001/client', {
+    const response = await fetch(`${API_URL}/client`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `${localStorage.getItem('token')}`,
       },
       body: JSON.stringify(client),
     });
@@ -61,6 +62,21 @@ export const getResults = async (ci) => {
     });
     if (response.ok) return response;
     throw new Error('Error al obtener los resultados');
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteClient = async (ci) => {
+  try {
+    const response = await fetch(`${API_URL}/client/${ci}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${localStorage.getItem('token')}`,
+      },
+    });
+    return response;
   } catch (error) {
     return error;
   }

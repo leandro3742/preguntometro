@@ -10,6 +10,7 @@ function Admin() {
   const [modal, setModal] = useState({});
   const [createModal, setCreateModal] = useState(false);
   const [showSpinner, setShowSpinner] = useState(true);
+  const [reload, setReload] = useState(false);
 
   const get = async () => {
     try {
@@ -23,13 +24,13 @@ function Admin() {
       }
     } catch (error) {
       setShowSpinner(false);
-      console.log(error);
+      // console.log(error);
     }
   };
 
   useEffect(() => {
     get();
-  }, []);
+  }, [reload]);
 
   const filterUsers = (value) => {
     const filtered = clients.filter(
@@ -111,8 +112,8 @@ function Admin() {
           Crear usuario nuevo
         </button>
       </div>
-      <ClientDataModal data={modal} setModal={setModal} />
-      <CreateModal show={createModal} close={setCreateModal} />
+      <ClientDataModal data={modal} setModal={setModal} reload={setReload} />
+      <CreateModal show={createModal} close={setCreateModal} reload={setReload} />
     </div>
   );
 }

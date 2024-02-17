@@ -1,9 +1,11 @@
 import { Modal } from 'flowbite-react';
 import { useEffect, useState } from 'react';
-import { getResults } from '../api/client';
+import { deleteClient, getResults } from '../api/client';
+import Spinner from './spinner';
 
-function ClientDataModal({ data, setModal }) {
+function ClientDataModal({ data, setModal, reload }) {
   const [results, setResults] = useState({});
+  const [showSpinner, setShowSpinner] = useState(false);
 
   const getStats = async (ci) => {
     try {
@@ -22,7 +24,7 @@ function ClientDataModal({ data, setModal }) {
         });
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -30,8 +32,23 @@ function ClientDataModal({ data, setModal }) {
     getStats(data.ci);
   }, [data]);
 
+  const deleteUser = async () => {
+    try {
+      setShowSpinner(true);
+      const response = await deleteClient(data.ci);
+      if (response.ok) {
+        setShowSpinner(false);
+        setModal({});
+        reload(true);
+      }
+    } catch (error) {
+      setShowSpinner(false);
+    }
+  };
+
   return (
     <Modal show={Object.keys(data).length > 0} onClose={() => setModal({})}>
+      {showSpinner && <Spinner />}
       <Modal.Header>Datos del usuario</Modal.Header>
       <Modal.Body>
         <div>
@@ -127,24 +144,31 @@ function ClientDataModal({ data, setModal }) {
 
         </div>
       </Modal.Body>
-      <Modal.Footer className="flex justify-end">
-        <button
-          onClick={() => setModal({})}
-          type="button"
-          className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-slate-600 border border-transparent rounded-md shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-        >
-          Cerrar
-        </button>
-        <button
-          type="button"
-          className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-green-800 border border-transparent rounded-md shadow-sm hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-        >
-          Guardar Cambios
-        </button>
-        {/* <Button onClick={() => setOpenModal(false)}>I accept</Button>
-        <Button color="gray" onClick={() => setOpenModal(false)}>
-          Decline
-        </Button> */}
+      <Modal.Footer className="flex justify-between">
+        <div className="">
+          <button
+            type="button"
+            className="inline-flex justify-center px-4 py-2 text-sm font-medium border rounded-md shadow-sm hover:bg-red-700 hover:text-white border-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition"
+            onClick={deleteUser}
+          >
+            Eliminar
+          </button>
+        </div>
+        <div>
+          <button
+            onClick={() => setModal({})}
+            type="button"
+            className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-slate-600 border border-transparent rounded-md shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            Cerrar
+          </button>
+          <button
+            type="button"
+            className="mx-3 inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-green-800 border border-transparent rounded-md shadow-sm hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            Guardar Cambios
+          </button>
+        </div>
       </Modal.Footer>
     </Modal>
   );
