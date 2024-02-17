@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import brand from '../assets/logo.png'
+import brand from '../assets/logo.png';
+
+// eslint-disable-next-line react/function-component-definition
 const Header = () => {
   const [isNavbarOpen, setNavbarOpen] = useState(false);
   const toggleNavbar = () => {
@@ -7,20 +9,20 @@ const Header = () => {
   };
 
   const classNameGenerator = (key) => {
-    const url = window.location.pathname
-    if (key === url && screen.width < 768)
-      return "block py-2 px-3 rounded bg-blue-600 text-gray-200 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-    else if (key === url && screen.width >= 768)
-      return "block py-2 px-3 rounded text-blue-700 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-700 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-    return 'block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
-  }
+    const url = window.location.pathname;
+    // eslint-disable-next-line no-restricted-globals
+    if (key === url && screen.width < 768) {
+      return 'block py-2 px-3 rounded bg-blue-600 text-gray-200 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent';
+    }
+    if (key === url && screen.width >= 768) return 'block py-2 px-3 rounded text-blue-700 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-700 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent';
+    return 'block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent';
+  };
 
   return (
     <nav className="rounded-b-md shadow-xl bg-white border-gray-200 dark:bg-gray-900 top-0 w-full z-10">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <img src={brand} className="lg:h-16 h-14" alt="Flowbite Logo" />
-        {/* <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Calendar</span> */}
-        <div className='invisible'>
+        <>
           <button
             onClick={toggleNavbar}
             type="button"
@@ -36,25 +38,24 @@ const Header = () => {
           <div className={`w-full md:block md:w-auto ${isNavbarOpen ? '' : 'hidden'}`} id="navbar-default">
             <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li onClick={toggleNavbar}>
-                <a href={'/'} className={classNameGenerator('/')}>Inicio</a>
+                <a href="/" className={classNameGenerator('/')}>Inicio</a>
               </li>
               <li onClick={toggleNavbar}>
-                <a href={'/examen'} className={classNameGenerator('/calendar')}>Exámen</a>
+                <a href="/examen" className={classNameGenerator('/calendar')}>Exámen</a>
               </li>
               <li onClick={toggleNavbar}>
-                <a href={'/employees'} className={classNameGenerator('/employees')}>Empleados</a>
+                <a href="/employees" className={classNameGenerator('/employees')}>Empleados</a>
               </li>
               <li onClick={toggleNavbar}>
-                <a href={'/clients'} className={classNameGenerator('/clients')}>Clientes</a>
+                <a href="/clients" className={classNameGenerator('/clients')}>Clientes</a>
               </li>
             </ul>
           </div>
-
-        </div>
+        </>
       </div>
 
     </nav>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

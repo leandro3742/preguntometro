@@ -1452,13 +1452,13 @@ export const dataJson = [
 ]
 
 function generateRandomNumber() {
-  let numeros = [];
-  let min = 0;
-  let max = 187;
+  const numeros = [];
+  const min = 0;
+  const max = 187;
 
   // Generar 30 números aleatorios sin repetición
   while (numeros.length < 30) {
-    let num = Math.floor(Math.random() * (max - min + 1)) + min;
+    const num = Math.floor(Math.random() * (max - min + 1)) + min;
     if (!numeros.includes(num)) {
       numeros.push(num);
     }
@@ -1468,10 +1468,11 @@ function generateRandomNumber() {
 }
 
 export const getQuestions = () => {
-  const arrNumbers = generateRandomNumber()
-  let questions = []
+  const arrNumbers = generateRandomNumber();
+  const questions = []
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < arrNumbers.length; i++) {
-    questions.push(dataJson[arrNumbers[i]])
+    questions.push(dataJson[arrNumbers[i]]);
   }
-  return questions
-}
+  return questions;
+};
