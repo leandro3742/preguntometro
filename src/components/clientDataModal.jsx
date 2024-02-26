@@ -6,21 +6,21 @@ import Spinner from './spinner';
 function ClientDataModal({ data, setModal, reload }) {
   const [results, setResults] = useState({});
   const [showSpinner, setShowSpinner] = useState(false);
-
   const getStats = async (ci) => {
     try {
       const response = await getResults(ci);
       if (response.ok) {
         const dataRes = await response.json();
         const cantExamenes = dataRes.length;
-        const cantExamenesAprobados = dataRes.filter((res) => res.resultado >= 60).length;
+        const cantExamenesAprobados = dataRes.filter((res) => res.resultado >= 90).length;
         const porcentajeAprobacion = (cantExamenesAprobados / cantExamenes) * 100;
-        const cantExamenesReprobados = dataRes.filter((res) => res.resultado < 60).length;
+        const cantExamenesReprobados = dataRes.filter((res) => res.resultado < 90).length;
         setResults({
           cantExamenes,
           cantExamenesAprobados,
           cantExamenesReprobados,
           porcentajeAprobacion,
+          allResults: dataRes.map((res) => res.resultado),
         });
       }
     } catch (error) {
@@ -141,7 +141,12 @@ function ClientDataModal({ data, setModal, reload }) {
             <span className="font-medium text-gray-700 dark:text-gray-200">Porcentaje de aprobacion: </span>
             <span className="text-gray-700 dark:text-gray-200">{parseInt(results.porcentajeAprobacion, 10) || 0}%</span>
           </div>
-
+          <div className="mt-2">
+            <span className="font-medium text-gray-700 dark:text-gray-200">Resultados:</span>
+            <span className="text-gray-700 dark:text-gray-200 ms-1">
+              {results.allResults && results.allResults.map((res) => `${parseInt(res, 10)}% `)}
+            </span>
+          </div>
         </div>
       </Modal.Body>
       <Modal.Footer className="flex justify-between">
