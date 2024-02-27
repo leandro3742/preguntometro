@@ -90,7 +90,7 @@ const Alumno = () => {
       // Guardar resultados
       setShowSpinner(true);
       save(correctAnswer / questions.length * 100);
-      if (correctAnswer / questions.length * 100 < 60) setShowConfetti(false);
+      if (correctAnswer / questions.length * 100 < 83) setShowConfetti(false);
       const closeConfetti = () => setShowConfetti(false);
       setTimeout(closeConfetti, 5000);
     }
@@ -154,7 +154,7 @@ const Alumno = () => {
               <p className="">Respuestas correctas: {data.correctAnswer} </p>
               <p className="">Porcentaje: {data.percentage}%</p>
               <p className="t-center">Respuestas incorrectas: {data.wrongAnswer}</p>
-              <p className="t-center">Aprobado: {data.percentage >= 60 ? 'Si!!' : 'No :*('}</p>
+              <p className="t-center">Aprobado: {data.percentage >= 83 ? 'Si!!' : 'No :*('}</p>
             </div>
             <hr className="my-3 border-slate-500" />
             <section className="flex justify-between">
