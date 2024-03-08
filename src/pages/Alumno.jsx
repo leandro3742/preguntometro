@@ -152,7 +152,7 @@ const Alumno = () => {
             <hr className="mb-3 border-slate-500" />
             <div className="lg:w-12/12 md:w-12/12 w-6/12 m-auto">
               <p className="">Respuestas correctas: {data.correctAnswer} </p>
-              <p className="">Porcentaje: {data.percentage}%</p>
+              <p className="">Porcentaje: {parseFloat(data.percentage).toFixed(2)}%</p>
               <p className="t-center">Respuestas incorrectas: {data.wrongAnswer}</p>
               <p className="t-center">Aprobado: {data.percentage >= 83 ? 'Si!!' : 'No :*('}</p>
             </div>

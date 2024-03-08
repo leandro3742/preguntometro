@@ -12,9 +12,11 @@ function ClientDataModal({ data, setModal, reload }) {
       if (response.ok) {
         const dataRes = await response.json();
         const cantExamenes = dataRes.length;
-        const cantExamenesAprobados = dataRes.filter((res) => res.resultado >= 83).length;
+        const cantExamenesAprobados = dataRes
+          .filter((res) => parseFloat(res.resultado) >= 83).length;
         const porcentajeAprobacion = (cantExamenesAprobados / cantExamenes) * 100;
-        const cantExamenesReprobados = dataRes.filter((res) => res.resultado < 83).length;
+        const cantExamenesReprobados = dataRes
+          .filter((res) => parseFloat(res.resultado) < 83).length;
         setResults({
           cantExamenes,
           cantExamenesAprobados,
