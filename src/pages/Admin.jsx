@@ -75,14 +75,21 @@ function Admin() {
               <th scope="col" className="px-3 lg:px-6 py-3">
                 Ingreso
               </th>
-              <th scope="col" className="px-3 lg:px-6 py-3">
-                {' '}
-              </th>
+
+              {window.screen.width >= 780 && (
+                <th scope="col" className="px-3 lg:px-6 py-3">
+                  {' '}
+                </th>
+              )}
             </tr>
           </thead>
           <tbody>
             {clientsFilter.map((client) => (
-              <tr key={client.ci} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+              <tr
+                onClick={() => { if (window.screen.width < 780) openModal(client); }}
+                key={client.ci}
+                className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+              >
                 <th scope="row" className="px-3 lg:px-6 lg:py-3 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   {client.name}
                   {' '}
@@ -94,9 +101,11 @@ function Admin() {
                 <td className="px-3 lg:px-6 lg:py-3 py-2">
                   {client.fechaIngreso}
                 </td>
-                <td className="px-3 lg:px-6 lg:py-3 py-2" onClick={() => openModal(client)}>
-                  <span className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Abrir</span>
-                </td>
+                {window.screen.width >= 780 && (
+                  <td className="px-3 lg:px-6 lg:py-3 py-2" onClick={() => openModal(client)}>
+                    <span className="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline">Abrir</span>
+                  </td>
+                )}
               </tr>
             ))}
 

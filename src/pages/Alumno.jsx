@@ -5,12 +5,13 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
-import { getQuestions } from '../assets/dataJson';
+// import { getQuestions } from '../assets/dataJson';
 import Check from '../assets/check.png';
 import X from '../assets/cerrar.png';
 import { verifyToken } from '../api/auth';
-import { saveResults } from '../api/client';
+// import { saveResults } from '../api/client';
 import Spinner from '../components/spinner';
+import { getQuestions, saveResults } from '../api/question';
 
 const Alumno = () => {
   const [questions, setQuestions] = useState([]);
@@ -25,6 +26,17 @@ const Alumno = () => {
   const [showSpinner, setShowSpinner] = useState(false);
 
   const navigate = useNavigate();
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i -= 1) {
+      // Generar un índice aleatorio entre 0 y i
+      const j = Math.floor(Math.random() * (i + 1));
+      // eslint-disable-next-line no-param-reassign
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
 
   const validateToken = async () => {
     try {
@@ -46,11 +58,28 @@ const Alumno = () => {
     }
   };
 
+  const fetchQuestions = async () => {
+    try {
+      setShowSpinner(true);
+      const response = await getQuestions();
+      setShowSpinner(false);
+      const dataRes = await response.json();
+      setQuestions(dataRes.map((elem) => {
+        const { options } = elem;
+        const aux = shuffleArray(options);
+        return { ...elem, options: aux };
+      }));
+    } catch (err) {
+      console.log(err);
+      setShowSpinner(false);
+    }
+  };
+
   useEffect(() => {
     if (!localStorage.getItem('token')) navigate('/');
     validateToken();
     if (reload) {
-      setQuestions(getQuestions());
+      fetchQuestions();
       setReload(false);
       setShowResults(false);
       setCurrentQuestion(0);
@@ -61,12 +90,22 @@ const Alumno = () => {
     }
   }, [reload]);
 
-  const save = async (result) => {
+  const saveResult = async () => {
     try {
-      const response = await saveResults(result);
-      if (response.ok) {
-        setShowSpinner(false);
-      }
+      setShowSpinner(true);
+      const response = await saveResults(isSelected);
+      if (!response.ok) setShowSpinner(false);
+      const dataAux = await response.json();
+      setData({
+        correctAnswer: dataAux.correctAnswers,
+        totalQuestions: dataAux.totalQuestions,
+        wrongAnswer: dataAux.totalQuestions - dataAux.correctAnswers,
+        percentage: dataAux.resultado,
+        array: dataAux.array,
+      });
+      if (dataAux.resultado < 83) setShowConfetti(false);
+      const closeConfetti = () => setShowConfetti(false);
+      setTimeout(closeConfetti, 5000);
       setShowSpinner(false);
     } catch (error) {
       setShowSpinner(false);
@@ -75,30 +114,14 @@ const Alumno = () => {
 
   useEffect(() => {
     if (showResults) {
-      let correctAnswer = 0;
-      questions.forEach((obj) => {
-        if (obj.correctAnswer === isSelected[obj.question]) {
-          correctAnswer += 1;
-        }
-      });
-      setData({
-        correctAnswer,
-        totalQuestions: questions.length,
-        wrongAnswer: questions.length - correctAnswer,
-        percentage: correctAnswer / questions.length * 100,
-      });
-      // Guardar resultados
-      setShowSpinner(true);
-      save(correctAnswer / questions.length * 100);
-      if (correctAnswer / questions.length * 100 < 83) setShowConfetti(false);
-      const closeConfetti = () => setShowConfetti(false);
-      setTimeout(closeConfetti, 5000);
+      saveResult();
     }
   }, [showResults]);
 
   if (!showResults) {
     return (
       <div className="p-2 lg:w-6/12 m-auto mt-6 lg:mt-24 bg-slate-200 rounded-md shadow-lg">
+        {showSpinner && <Spinner />}
         <div className="text-lg p-2 text-black rounded-lg mb-4 font-semibold">
           <p>{questions[currentQuestion]?.question}</p>
         </div>
@@ -108,7 +131,7 @@ const Alumno = () => {
             <div
               key={option}
               className={`${isSelected[questions[currentQuestion]?.question] === option ? 'bg-green-300' : ''} border border-black my-2 text-black hover:bg-green-300 p-3 rounded-lg lg:transition`}
-              onClick={() => setIsSelected({ ...isSelected, [questions[currentQuestion]?.question]: option })}
+              onClick={() => setIsSelected({ ...isSelected, [questions[currentQuestion]?.id]: option })}
             >
               <label htmlFor={option}>{option}</label>
             </div>
@@ -137,7 +160,7 @@ const Alumno = () => {
       {showSpinner && <Spinner />}
       {!showAnswers
         ? (
-          <section className="mx-2 p-2 md:w-6/12 lg:w-4/12 m-auto mt-6 lg:mt-24 bg-slate-200 rounded-md shadow-lg">
+          <section className="mx-2 p-2 md:w-8/12 lg:w-4/12 m-auto mt-6 lg:mt-24 bg-slate-200 rounded-md shadow-lg">
             {showConfetti
               && (
                 <Confetti
@@ -150,11 +173,11 @@ const Alumno = () => {
               <h2 className="text-2xl font-semibold mb-4 ">Resultados</h2>
             </div>
             <hr className="mb-3 border-slate-500" />
-            <div className="lg:w-12/12 md:w-12/12 w-6/12 m-auto">
-              <p className="">Respuestas correctas: {data.correctAnswer} </p>
-              <p className="">Porcentaje: {parseFloat(data.percentage).toFixed(2)}%</p>
-              <p className="t-center">Respuestas incorrectas: {data.wrongAnswer}</p>
-              <p className="t-center">Aprobado: {data.percentage >= 83 ? 'Si!!' : 'No :*('}</p>
+            <div className="lg:w-12/12 md:w-12/12 w-12/12 m-auto">
+              <p className="">Respuestas correctas: <b>{data.correctAnswer}</b> </p>
+              <p className="">Porcentaje: <b>{parseFloat(data.percentage).toFixed(0)}%</b></p>
+              <p className="t-center">Respuestas incorrectas: <b>{data.wrongAnswer}</b></p>
+              <p className="t-center">Aprobado: <b>{data.percentage >= 83 ? 'Si!!' : 'No :*('}</b></p>
             </div>
             <hr className="my-3 border-slate-500" />
             <section className="flex justify-between">
@@ -165,15 +188,15 @@ const Alumno = () => {
         )
         : (
           <section className="mx-2 p-2 md:w-6/12 lg:w-4/12 m-auto mt-2 lg:mt-10 bg-slate-200 rounded-md shadow-lg">
-            {questions.map((question) => (
+            {data.array.map((question) => (
               <div key={question.question} className="p-2 mb-4 text-black rounded-lg">
                 <p className="">{question.question}</p>
                 <div className="flex flex-col">
                   <p className="font-semibold underline">Respuesta:</p>
                   <div className="flex items-center">
-                    <span className="font-semibold text-green-800">{isSelected[question.question]}</span>
+                    <span className="font-semibold text-green-800">{isSelected[question.id]}</span>
                     <img
-                      src={question.correctAnswer === isSelected[question.question] ? Check : X}
+                      src={question.correctAnswer === isSelected[question.id] ? Check : X}
                       alt="check"
                       className="w-4 h-4 ms-6"
                     />

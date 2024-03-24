@@ -41,13 +41,7 @@ const Header = () => {
                 <a href="/" className={classNameGenerator('/')}>Inicio</a>
               </li>
               <li onClick={toggleNavbar}>
-                <a href="/examen" className={classNameGenerator('/calendar')}>Exámen</a>
-              </li>
-              <li onClick={toggleNavbar}>
-                <a href="/employees" className={classNameGenerator('/employees')}>Empleados</a>
-              </li>
-              <li onClick={toggleNavbar}>
-                <a href="/clients" className={classNameGenerator('/clients')}>Clientes</a>
+                <a href="/examen" className={classNameGenerator('/examen')}>Exámen</a>
               </li>
             </ul>
           </div>
