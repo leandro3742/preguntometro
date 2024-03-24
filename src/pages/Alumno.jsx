@@ -144,7 +144,13 @@ const Alumno = () => {
           <div>
             <button disabled={currentQuestion === 0} onClick={() => setCurrentQuestion(currentQuestion - 1)} className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Anterior</button>
             <button
-              onClick={() => (currentQuestion < questions.length - 1 ? setCurrentQuestion(currentQuestion + 1) : setShowResults(true))}
+              onClick={() => {
+                if (!isSelected[questions[currentQuestion]?.id]) setIsSelected({ ...isSelected, [questions[currentQuestion]?.id]: '' });
+                // eslint-disable-next-line no-unused-expressions
+                currentQuestion < questions.length - 1
+                  ? setCurrentQuestion(currentQuestion + 1)
+                  : setShowResults(true);
+              }}
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
 
             >
