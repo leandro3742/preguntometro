@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { login } from '../api/auth';
 import Spinner from '../components/spinner';
 
@@ -20,8 +20,9 @@ function Examen() {
   const [show, setShow] = useState(false);
   const [isClient, setIsClient] = useState(true);
   const [showSpinner, setShowSpinner] = useState(false);
-
   const navigate = useNavigate();
+
+  const { client } = useParams();
 
   const verifyUser = async (e) => {
     e.preventDefault();
@@ -32,11 +33,11 @@ function Examen() {
       if (response.ok) {
         const data = await response.json();
         if (data.role === 'admin') {
-          navigate('/admin');
+          navigate(`/${client}/admin`);
           localStorage.setItem('token', data.token);
           localStorage.setItem('role', data.role);
         } else if (data.role === 'client') {
-          navigate('/alumno');
+          navigate(`/${client}/alumno`);
           localStorage.setItem('token', data.token);
           localStorage.setItem('role', data.role);
         }
@@ -45,17 +46,10 @@ function Examen() {
     } catch (error) {
       setShow(true);
     }
-    // if (e.target[0].value === '56293413') {
-    //   navigate('/alumno');
-    //   localStorage.setItem('user', e.target[0].value);
-    // }
-    // if (e.target[0].value === '49189815') {
-    //   navigate('/admin');
-    //   localStorage.setItem('user', e.target[0].value);
-    // }
   };
+
   return (
-    <div className="mt-16 lg:w-3/12 m-auto bg-white p-5 rounded-xl shadow-lg">
+    <div className="mt-16 lg:w-3/12 m-auto bg-slate-50 p-5 rounded-xl shadow-lg">
       {showSpinner && <Spinner />}
       <div className="flex justify-between">
         <h3 className="text-2xl font-semibold mb-4 text-center">Ingresar {isClient ? 'Alumno' : 'Administrador'}</h3>
@@ -90,7 +84,7 @@ function Examen() {
         )}
         {show && <Notificacion />}
         <section className="m-auto mt-3">
-          <button type="submit" className="bg-blue-500 p-2 px-6 rounded-lg shadow-md focus:ring-blue-500">Ingresar</button>
+          <button type="submit" className="bg-blue-500 p-2 px-6 rounded-lg shadow-md focus:ring-blue-500 text-white">Ingresar</button>
         </section>
       </form>
     </div>

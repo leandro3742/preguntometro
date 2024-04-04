@@ -162,13 +162,15 @@ function ClientDataModal({ data, setModal, reload }) {
           </button>
         </div>
         <div>
-          <button
-            onClick={() => setModal({})}
-            type="button"
-            className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-slate-600 border border-transparent rounded-md shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          >
-            Cerrar
-          </button>
+          {window.screen.width > 780 && (
+            <button
+              onClick={() => setModal({})}
+              type="button"
+              className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-slate-600 border border-transparent rounded-md shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Cerrar
+            </button>
+          )}
           <button
             type="button"
             className="mx-3 inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-green-800 border border-transparent rounded-md shadow-sm hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"

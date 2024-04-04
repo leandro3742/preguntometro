@@ -22,7 +22,6 @@ const CreateModal = ({ show, close, reload }) => {
       // console.log(error);
     }
   };
-
   return (
     <Modal show={show} onClose={() => close(false)}>
       {showSpinner && <Spinner />}
