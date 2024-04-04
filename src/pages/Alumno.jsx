@@ -130,7 +130,7 @@ const Alumno = () => {
           {questions[currentQuestion]?.options.map((option) => (
             <div
               key={option}
-              className={`${isSelected[questions[currentQuestion]?.question] === option ? 'bg-green-300' : ''} border border-black my-2 text-black hover:bg-green-300 p-3 rounded-lg lg:transition`}
+              className={`${isSelected[questions[currentQuestion]?.id] === option ? 'bg-green-300' : ''} border border-black my-2 text-black hover:bg-green-300 p-3 rounded-lg lg:transition`}
               onClick={() => setIsSelected({ ...isSelected, [questions[currentQuestion]?.id]: option })}
             >
               <label htmlFor={option}>{option}</label>

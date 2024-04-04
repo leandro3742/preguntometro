@@ -41,6 +41,8 @@ function Examen() {
           localStorage.setItem('token', data.token);
           localStorage.setItem('role', data.role);
         }
+      } else {
+        setShow(true);
       }
       setShowSpinner(false);
     } catch (error) {
