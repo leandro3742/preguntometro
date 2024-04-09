@@ -11,10 +11,11 @@ const ProtectedRoutes = () => {
     const body = document.querySelector('body');
     if (client === 'iframe') {
       window.addEventListener('message', (event) => {
-        if (event.origin === 'https://academia-chufles-uhfz.vercel.app') {
-          body.style.backgroundColor = event.data.backgroundColor;
-          if (event.data.dark) body.classList.add('dark');
-          else body.classList.remove('dark');
+        body.style.backgroundColor = event.data.backgroundColor;
+        if (event.data.dark) {
+          body.classList.add('dark');
+        } else {
+          body.classList.remove('dark');
         }
       }, false);
     }
