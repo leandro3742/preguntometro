@@ -51,7 +51,7 @@ function Examen() {
   };
 
   return (
-    <div className="mt-16 lg:w-3/12 m-auto bg-slate-50 p-5 rounded-xl shadow-lg">
+    <div className="mt-16 lg:w-3/12 md:w-10/12 m-auto dark:bg-gray-900 dark:text-white bg-slate-50 p-5 rounded-xl shadow-lg">
       {showSpinner && <Spinner />}
       <div className="flex justify-between">
         <h3 className="text-2xl font-semibold mb-4 text-center">Ingresar {isClient ? 'Alumno' : 'Administrador'}</h3>
@@ -70,7 +70,7 @@ function Examen() {
           id="ci"
           name="ci"
           placeholder="Ej: 12345678"
-          className=" p-2 rounded-lg shadow-md focus:ring-blue-500"
+          className="p-2 rounded-lg shadow-md focus:ring-blue-500  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
         {!isClient && (
           <>
@@ -80,7 +80,7 @@ function Examen() {
               id="password"
               name="password"
               placeholder="Ej: 12345678"
-              className=" p-2 rounded-lg shadow-md focus:ring-blue-500"
+              className="text-gray-900 text-sm p-2 rounded-lg shadow-md focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
           </>
         )}

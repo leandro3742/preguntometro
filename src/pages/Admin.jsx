@@ -48,7 +48,7 @@ function Admin() {
     <div className="mt-3 lg:p-3 md:p-3">
       {showSpinner && <Spinner />}
       <div>
-        <h1 className="text-2xl font-semibold mb-4 text-center">Administrar Usuarios</h1>
+        <h1 className="text-2xl font-semibold mb-4 text-center dark:text-white">Administrar Usuarios</h1>
       </div>
       <div className="relative my-3 px-2">
         <div className="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-4 pointer-events-none">

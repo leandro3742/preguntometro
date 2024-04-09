@@ -36,7 +36,7 @@ const CreateModal = ({ show, close, reload }) => {
               type="text"
               name="name"
               id="name"
-              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               value={data.name || ''}
               onChange={(e) => setData({ ...data, name: e.target.value })}
             />
@@ -52,7 +52,7 @@ const CreateModal = ({ show, close, reload }) => {
               type="text"
               name="lastName"
               id="lastName"
-              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               value={data.lastName || ''}
               onChange={(e) => setData({ ...data, lastName: e.target.value })}
             />
@@ -68,7 +68,7 @@ const CreateModal = ({ show, close, reload }) => {
               type="text"
               name="ci"
               id="ci"
-              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               value={data.ci || ''}
               onChange={(e) => setData({ ...data, ci: e.target.value })}
             />
@@ -84,7 +84,7 @@ const CreateModal = ({ show, close, reload }) => {
               type="date"
               name="fechaFinalizacion"
               id="fechaFinalizacion"
-              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               value={data.fechaFinalizacion || ''}
               onChange={(e) => setData({ ...data, fechaFinalizacion: e.target.value })}
             />

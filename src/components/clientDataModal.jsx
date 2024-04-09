@@ -62,7 +62,7 @@ function ClientDataModal({ data, setModal, reload }) {
               type="text"
               name="name"
               id="name"
-              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               value={data.name}
             />
           </div>
@@ -77,7 +77,7 @@ function ClientDataModal({ data, setModal, reload }) {
               type="text"
               name="lastName"
               id="lastName"
-              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               value={data.lastName}
             />
           </div>
@@ -92,7 +92,7 @@ function ClientDataModal({ data, setModal, reload }) {
               type="text"
               name="ci"
               id="ci"
-              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               value={data.ci}
             />
           </div>
@@ -108,7 +108,7 @@ function ClientDataModal({ data, setModal, reload }) {
               type="text"
               name="fechaIngreso"
               id="fechaIngreso"
-              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               value={data.fechaIngreso}
             />
           </div>
@@ -123,7 +123,7 @@ function ClientDataModal({ data, setModal, reload }) {
               type="text"
               name="fechaFinalizacion"
               id="fechaFinalizacion"
-              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               value={data.fechaFinalizacion}
             />
           </div>
@@ -155,7 +155,7 @@ function ClientDataModal({ data, setModal, reload }) {
         <div className="">
           <button
             type="button"
-            className="inline-flex justify-center px-4 py-2 text-sm font-medium border rounded-md shadow-sm hover:bg-red-700 hover:text-white border-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition"
+            className="dark:text-white inline-flex justify-center px-4 py-2 text-sm font-medium border rounded-md shadow-sm hover:bg-red-700 hover:text-white border-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition"
             onClick={deleteUser}
           >
             Eliminar
