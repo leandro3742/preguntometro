@@ -8,16 +8,14 @@ const ProtectedRoutes = () => {
   const { client } = useParams();
 
   useEffect(() => {
-    const body = document.querySelector('body');
     if (client === 'iframe') {
-      window.addEventListener('message', (event) => {
-        body.style.backgroundColor = event.data.backgroundColor;
-        if (event.data.dark) {
-          body.classList.add('dark');
-        } else {
-          body.classList.remove('dark');
-        }
-      }, false);
+      const params = new URLSearchParams(window.location.search);
+      const mode = params.get('mode');
+      const bg = params.get('bg');
+      document.body.style.backgroundColor = `#${bg}`;
+      if (mode === 'dark') {
+        document.body.classList.add('dark');
+      }
     }
   }, []);
 
